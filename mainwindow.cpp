@@ -88,3 +88,27 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
     trem1->setVelocidade(value);
 }
 
+
+void MainWindow::on_horizontalSlider_2_valueChanged(int value)
+{
+    trem2->setVelocidade(value);
+}
+
+
+void MainWindow::on_horizontalSlider_3_valueChanged(int value)
+{
+    trem3->setVelocidade(value);
+}
+
+
+void MainWindow::on_horizontalSlider_4_valueChanged(int value)
+{
+    trem4->setVelocidade(value);
+}
+
+
+void MainWindow::on_horizontalSlider_5_valueChanged(int value)
+{
+    trem5->setVelocidade(value);
+}
+
