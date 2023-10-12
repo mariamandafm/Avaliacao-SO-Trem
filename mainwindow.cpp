@@ -7,9 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
     //Cria o trem com seu (ID, posição X, posição Y)
     trem1 = new Trem(1,150,80);
-    trem2 = new Trem(2,420,80);
+    trem2 = new Trem(2,460,80);
     trem3 = new Trem(3,10,200);
     trem4 = new Trem(4,290,200);
     trem5 = new Trem(5,560,200);
@@ -29,11 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(on_horizontalSlider_valueChanged(int)));
 
-
 }
 
 //Função que será executada quando o sinal UPDATEGUI for emitido
 void MainWindow::updateInterface(int id, int x, int y){
+
     switch(id){
     case 1: //Atualiza a posição do objeto da tela (quadrado) que representa o trem1
         ui->label_trem1->setGeometry(x,y,21,17);
@@ -51,7 +52,6 @@ void MainWindow::updateInterface(int id, int x, int y){
         ui->label_trem5->setGeometry(x,y,21,17);
         break;
     }
-
 }
 
 MainWindow::~MainWindow()
@@ -76,11 +76,11 @@ void MainWindow::on_pushButton_clicked()
  */
 void MainWindow::on_pushButton_2_clicked()
 {
-    trem1->terminate();
+//    trem1->terminate();
     trem2->terminate();
-    trem3->terminate();
-    trem4->terminate();
-    trem5->terminate();
+//  trem3->terminate();
+//    trem4->terminate();
+//    trem5->terminate();
 }
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)

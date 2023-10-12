@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+
 #include "trem.h"
 
 namespace Ui {
@@ -44,6 +45,7 @@ private:
     Trem *trem3;
     Trem *trem4;
     Trem *trem5;
+
 };
 
 #endif // MAINWINDOW_H

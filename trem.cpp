@@ -1,6 +1,10 @@
 #include "trem.h"
+#include <iostream>
 #include <QtCore>
+#include <QMutex>
+#include <QDebug>
 
+QMutex mutex1;
 //Construtor
 Trem::Trem(int ID, int x, int y){
     this->ID = ID;
@@ -14,7 +18,18 @@ void Trem::run(){
     while(true){
         switch(ID){
         case 1:     //Trem 1
-            if (y == 80 && x < 420)
+            if (x == 400 && y == 80){
+                qDebug() << "[Trem 1] Tenta entrar";
+                mutex1.lock();
+                qDebug() << "[Trem 1] Fechou: no trilho";
+                x += 10;
+            }
+            else if (x == 400 && y == 200){
+                mutex1.unlock();
+                qDebug() << "[Trem 1] Liberou: trilho livre";
+                x -= 10;
+            }
+            else if (y == 80 && x < 420)
                 x+=10;
             else if (x == 420 && y < 200)
                 y+=10;
@@ -25,7 +40,18 @@ void Trem::run(){
             emit updateGUI(ID, x,y);    //Emite um sinal
             break;
         case 2: //Trem 2
-            if (y == 80 && x < 690)
+            if (x == 440 && y == 200){
+                qDebug() << "[Trem 2] Tenta entrar";
+                mutex1.lock();
+                qDebug() << "[Trem 2] Fechou: no trilho";
+                x -= 10;
+            }
+            else if (x == 440 && y == 80 ){
+                mutex1.unlock();
+                qDebug() << "[Trem 2] Liberou: trilho livre";
+                x += 10;
+            }
+            else if (y == 80 && x < 690)
                 x+=10;
             else if (x == 690 && y < 200)
                 y+=10;
@@ -88,7 +114,3 @@ void Trem::setVelocidade(int novaVelocidade)
         // Trate qualquer valor inválido aqui, como emitir um aviso ou lançar uma exceção.
     }
 }
-
-
-
-
