@@ -523,17 +523,6 @@ QSlider::handle:horizontal {
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>350</y>
-      <width>160</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout"/>
-   </widget>
    <zorder>label_trilho3_2</zorder>
    <zorder>label_trilho2_8</zorder>
    <zorder>label_trilho2_2</zorder>
@@ -564,7 +553,6 @@ QSlider::handle:horizontal {
    <zorder>horizontalSlider_3</zorder>
    <zorder>horizontalSlider_4</zorder>
    <zorder>horizontalSlider_5</zorder>
-   <zorder>gridLayoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
