@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     trem1 = new Trem(1,150,80);
     trem2 = new Trem(2,420,80);
     trem3 = new Trem(3,10,200);
-    trem4 = new Trem(4,290,200);
-    trem5 = new Trem(5,560,200);
+    trem4 = new Trem(4,290,220);
+    trem5 = new Trem(5,580,320);
 
     /*
      * Conecta o sinal UPDATEGUI à função UPDATEINTERFACE.
@@ -30,6 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(on_horizontalSlider_valueChanged(int)));
 
+    trem1->start();
+    trem2->start();
+    trem3->start();
+    trem4->start();
+    trem5->start();
 }
 
 //Função que será executada quando o sinal UPDATEGUI for emitido
@@ -59,29 +64,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*
- * Ao clicar, trens começam execução
- */
-void MainWindow::on_pushButton_clicked()
-{
-    trem1->start();
-    trem2->start();
-    trem3->start();
-    trem4->start();
-    trem5->start();
-}
-
-/*
- * Ao clicar, trens param execução
- */
-void MainWindow::on_pushButton_2_clicked()
-{
-//    trem1->terminate();
-    trem2->terminate();
-//  trem3->terminate();
-//    trem4->terminate();
-//    trem5->terminate();
-}
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {

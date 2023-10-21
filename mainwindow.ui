@@ -78,32 +78,6 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>380</y>
-      <width>99</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Ligar</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>410</y>
-      <width>98</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Parar</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_trilho4_2">
     <property name="geometry">
      <rect>
@@ -186,6 +160,9 @@ QSlider::handle:horizontal {
     width: 18px; 
     margin: -6px 0; 
 }</string>
+    </property>
+    <property name="maximum">
+     <number>200</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -450,6 +427,9 @@ QSlider::handle:horizontal {
     margin: -6px 0; 
 }</string>
     </property>
+    <property name="maximum">
+     <number>200</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
@@ -472,6 +452,9 @@ QSlider::handle:horizontal {
     width: 18px; 
     margin: -6px 0; 
 }</string>
+    </property>
+    <property name="maximum">
+     <number>200</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -496,6 +479,9 @@ QSlider::handle:horizontal {
     margin: -6px 0; 
 }</string>
     </property>
+    <property name="maximum">
+     <number>200</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
@@ -518,6 +504,9 @@ QSlider::handle:horizontal {
     width: 18px; 
     margin: -6px 0; 
 }</string>
+    </property>
+    <property name="maximum">
+     <number>200</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -542,8 +531,6 @@ QSlider::handle:horizontal {
    <zorder>label_trilho2_11</zorder>
    <zorder>label_trem3</zorder>
    <zorder>label_trilho1</zorder>
-   <zorder>pushButton</zorder>
-   <zorder>pushButton_2</zorder>
    <zorder>label_trilho1_2</zorder>
    <zorder>horizontalSlider</zorder>
    <zorder>label_trem1</zorder>
