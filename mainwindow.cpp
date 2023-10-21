@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Cria o trem com seu (ID, posição X, posição Y)
     trem1 = new Trem(1,150,80);
-    trem2 = new Trem(2,460,80);
+    trem2 = new Trem(2,420,80);
     trem3 = new Trem(3,10,200);
     trem4 = new Trem(4,290,200);
     trem5 = new Trem(5,560,200);
