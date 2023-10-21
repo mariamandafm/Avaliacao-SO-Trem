@@ -34,34 +34,38 @@ void Trem::run(){
             if (x == 400 && y == 80){
                 //qDebug() << "[Trem 1] Tenta entrar na R0";
                 mutex1.lock();
+                isMutex1Lock = true;
                 //qDebug() << "[Trem 1] Fechou: no trilho R0";
                 x += 10;
             }
             else if (x == 400 && y == 200){
                 mutex1.unlock();
+                isMutex1Lock = false;
                 //qDebug() << "[Trem 1] Liberou: trilho livre R0";
                 x -= 10;
             }
             else if (x == 310 && y == 200){
-                qDebug() << "[Trem 1] Tenta entrar na R1";
+                //qDebug() << "[Trem 1] Tenta entrar na R1";
                 mutex2.lock();
-                qDebug() << "[Trem 1] Fechou: no trilho R1";
+                isMutex2Lock = true;
+                //qDebug() << "[Trem 1] Fechou: no trilho R1";
                 x -= 10;
             }
             else if (x == 150 && y == 180){
                 mutex2.unlock();
-                qDebug() << "[Trem 1] Liberou: trilho livre R1";
+                isMutex2Lock = false;
+                //qDebug() << "[Trem 1] Liberou: trilho livre R1";
                 y -= 10;
             }
             else if (x == 420 && y == 180){
-                qDebug() << "[Trem 1] Tenta entrar na R2";
+                //qDebug() << "[Trem 1] Tenta entrar na R2";
                 mutex3.lock();
-                qDebug() << "[Trem 1] Fechou: no trilho R2";
+                //qDebug() << "[Trem 1] Fechou: no trilho R2";
                 y += 10;
             }
             else if (x == 270 && y == 200){
                 mutex3.unlock();
-                qDebug() << "[Trem 1] Liberou: trilho livre R2";
+                //qDebug() << "[Trem 1] Liberou: trilho livre R2";
                 x -= 10;
             }
             else if (y == 80 && x < 420)
@@ -76,28 +80,39 @@ void Trem::run(){
             break;
         case 2: //Trem 2
             if (x == 580 && y == 200){
-                //qDebug() << "[Trem 2] Tenta entrar R3";
-                mutex1.lock();
-                mutex4.lock();
-                isMutex1Lock = true;
-                //qDebug() << "[Trem 2] Fechou: no trilho R3";
-                x -= 10;
+                if (!isMutex1Lock && !isMutex4Lock){
+                    //qDebug() << "[Trem 2] Tenta entrar R3";
+                    mutex1.lock();
+                    isMutex1Lock = true;
+                    mutex4.lock();
+                    isMutex4Lock = true;
+                    //qDebug() << "[Trem 2] Fechou: no trilho R3";
+                    x -= 10;
+                }
+                else{
+                    qDebug() << "[Trem 2] Não conseguir fechar os dois mutex";
+                    break;
+                }
+
             }
-            else if (x == 420 && y == 80 && isMutex1Lock){
+            else if (x == 420 && y == 80 && isMutex1Lock && isMutex4Lock){
                 mutex1.unlock();
-                mutex4.unlock();
                 isMutex1Lock = false;
+                mutex4.unlock();              
+                isMutex4Lock = false;
                 //qDebug() << "[Trem 2] Liberou: trilho livre R3";
                 x += 10;
             }
             else if (x == 690 && y == 180){
                 //qDebug() << "[Trem 2] Tenta entrar R4";
                 mutex5.lock();
+                isMutex5Lock = true;
                 //qDebug() << "[Trem 2] Fechou: no trilho R4";
                 y += 10;
             }
             else if (x == 540 && y == 200){
                 mutex5.unlock();
+                isMutex5Lock = false;
                 //qDebug() << "[Trem 2] Liberou: trilho livre R4";
                 x -= 10;
             }
@@ -113,17 +128,35 @@ void Trem::run(){
             break;
         case 3: // Trem3
             if (x == 130 && y == 200){
-                qDebug() << "[Trem 3] Tenta entrar na R1";
-                mutex2.lock();
-                mutex6.lock();
-                qDebug() << "[Trem 3] Fechou: no trilho R1";
-                x += 10;
+                //qDebug() << "[Trem 3] Tenta entrar na R1";
+                if (!isMutex2Lock && !isMutex6Lock){
+                    mutex2.lock();
+                    isMutex2Lock = true;
+                    mutex6.lock();
+                    isMutex6Lock = true;
+
+                    //qDebug() << "[Trem 3] Fechou: no trilho R1";
+                    x += 10;
+                }
+                else{
+                    //qDebug() << "[Trem 3] Não conseguir pegar os dois mutex ao mesmo tempo";
+                    break;
+                }
             }
             else if (x == 270 && y == 320){
-                mutex2.unlock();
-                mutex6.unlock();
-                qDebug() << "[Trem 3] Liberou: trilho livre R5";
-                x -= 10;
+                if (isMutex2Lock && isMutex6Lock){
+                    mutex2.unlock();
+                    isMutex2Lock = false;
+                    mutex6.unlock();
+                    isMutex6Lock = false;
+
+                    //qDebug() << "[Trem 3] Liberou: trilho livre R5";
+                    x -= 10;
+                }
+                else{
+                   // qDebug() << "[Trem 3] Não liberou os dois mutex";
+                    break;
+                }
             }
             else if (y == 200 && x < 290)
                 x+=10;
@@ -137,50 +170,54 @@ void Trem::run(){
             break;
         case 4: // Trem4
             if (x == 310 && y == 320){
-                qDebug() << "[Trem 4] Tenta entrar na R5";
+                //qDebug() << "[Trem 4] Tenta entrar na R5";
                 mutex6.lock();
                 isMutex6Lock = true;
-                qDebug() << "[Trem 4] Fechou: no trilho R5";
+                //qDebug() << "[Trem 4] Fechou: no trilho R5";
                 x -= 10;
             }
             else if ((x == 310 && y == 200) && isMutex6Lock ){
                 mutex6.unlock();
                 isMutex6Lock = false;
-                qDebug() << "[Trem 4] Liberou: trilho livre R5";
+                //qDebug() << "[Trem 4] Liberou: trilho livre R5";
                 x += 10;
             }
             else if (x == 290 && y == 220){
-                qDebug() << "[Trem 4] Tenta entrar na R4";
+                //qDebug() << "[Trem 4] Tenta entrar na R4";
                 mutex3.lock();
                 isMutex3Lock = true;
-                qDebug() << "[Trem 4] Fechou: no trilho R4";
+                //qDebug() << "[Trem 4] Fechou: no trilho R4";
                 y -= 10;
             }
             else if ((x == 440 && y == 200) && isMutex3Lock){
                 mutex3.unlock();
                 isMutex3Lock = false;
-                qDebug() << "[Trem 4] Liberou: trilho livre R4";
+                //qDebug() << "[Trem 4] Liberou: trilho livre R4";
                 x += 10;
             }
             else if (x == 400 && y == 200){
                 //qDebug() << "[Trem 4] Tenta entrar na R3";
                 mutex4.lock();
+                isMutex4Lock = true;
                 //qDebug() << "[Trem 4] Fechou: no trilho R3";
                 x += 10;
             }
             else if (x == 560 && y == 220){
                 mutex4.unlock();
+                isMutex4Lock = false;
                 //qDebug() << "[Trem 4] Liberou: trilho livre R3";
                 y += 10;
             }
             else if (x == 540 && y == 200){
                 //qDebug() << "[Trem 4] Tenta entrar na R6";
                 mutex7.lock();
+                isMutex7Lock = true;
                 //qDebug() << "[Trem 4] Fechou: no trilho R6";
                 x += 10;
             }
             else if (x == 540 && y == 320){
                 mutex7.unlock();
+                isMutex7Lock = false;
                 //qDebug() << "[Trem 4] Liberou: trilho livre R6";
                 x -= 10;
             }
@@ -196,15 +233,21 @@ void Trem::run(){
             break;
         case 5: // Trem5
             if (x == 580 && y == 320){
-                //qDebug() << "[Trem 5] Tenta entrar na R6";
-                mutex7.lock();
-                mutex5.lock();
-                isMutex7Lock = true;
-                isMutex5Lock = true;
-                //qDebug() << "[Trem 5] Fechou: no trilho R6";
-                x -= 10;
+                if (!isMutex5Lock && !isMutex7Lock){
+                    //qDebug() << "[Trem 5] Tenta entrar na R6";
+                    mutex7.lock();
+                    isMutex7Lock = true;
+                    mutex5.lock();
+                    isMutex5Lock = true;
+                    //qDebug() << "[Trem 5] Fechou: no trilho R6";
+                    x -= 10;
+                }
+                else {
+                    //qDebug() << "[Trem 5] Não conseguir pegar os dois mutex";
+                    break;
+                }
             }
-            else if ((x == 710 && y == 200) && isMutex7Lock){
+            else if ((x == 710 && y == 200) && isMutex7Lock && isMutex5Lock){
                 mutex7.unlock();
                 mutex5.unlock();
                 isMutex7Lock = false;
